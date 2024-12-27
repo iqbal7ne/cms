@@ -10,7 +10,7 @@ import Link from "next/link";
 const getBlogPostsContentful = async () => {
   try {
     const data = await contentfulClient.getEntries<TypeBlogPostSkeleton>();
-    console.log(data);
+    // console.log(data);
 
     return data;
   } catch (error) {
@@ -19,6 +19,11 @@ const getBlogPostsContentful = async () => {
 };
 export default async function Home() {
   const posts = await getBlogPostsContentful();
+  console.log(
+    "=================================== ini data posts di homepage =============================="
+  );
+  console.log(posts);
+
   return (
     <div className="py-14 bg-white">
       <Hero />
@@ -49,4 +54,3 @@ export default async function Home() {
     </div>
   );
 }
-contentfulClient;

@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  typescript: {},
 };
 
 export default nextConfig;

@@ -1,12 +1,9 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 
 export function Navbar() {
-  const Status = () => {
-    const [active, setActive] = useState<string>("b1");
-  };
   return (
     <div className="navbar bg-slate-400 fixed z-10 text-black">
       <div className="navbar-start">

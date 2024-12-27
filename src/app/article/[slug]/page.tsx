@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react";
 import {
   IContentfulAsset,
-  TypeBlogPostFields,
   TypeBlogPostSkeleton,
 } from "@/contentful/types/blogPost.types";
 import contentfulClient from "@/contentful/contentfulClient";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import RichText from "@/components/global/richText";
-import Link from "next/link";
 
 export default function Article() {
   const params = useParams<{ slug: string }>();
