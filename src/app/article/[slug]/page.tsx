@@ -13,7 +13,7 @@ import RichText from "@/components/global/richText";
 interface ArticleFields {
   title: string;
   image: IContentfulAsset;
-  body: any; // Replace 'any' with the actual type if known
+  body: any; // Replace 'any' with the actual type if known @typescript-eslint/no-explicit-any
 }
 
 export default function Article() {
