@@ -10,38 +10,51 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import RichText from "@/components/global/richText";
 
+interface ArticleFields {
+  title: string;
+  image: IContentfulAsset;
+  body: any; // Replace 'any' with the actual type if known
+}
+
 export default function Article() {
-  const params = useParams<{ slug: string }>();
-  const [article, setArticle] = useState<any>();
+  const { slug } = useParams<{ slug: string }>();
+  const [article, setArticle] = useState<ArticleFields | null>(null);
 
   const fetchArticle = async () => {
     try {
-      const data = await contentfulClient.getEntries<TypeBlogPostSkeleton>({
-        content_type: "blogPost",
-        limit: 1,
-        "fields.slug": params.slug,
-      });
-      setArticle(data.items[0].fields);
+      const { items } = await contentfulClient.getEntries<TypeBlogPostSkeleton>(
+        {
+          content_type: "blogPost",
+          limit: 1,
+          "fields.slug": slug,
+        }
+      );
+      console.log(
+        "=================================ini data slug/page ==============================="
+      );
+      console.log(items);
+
+      if (items.length > 0) {
+        setArticle(items[0].fields);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching article:", error);
     }
   };
 
   useEffect(() => {
     fetchArticle();
-  }, []);
+  }, [slug]);
 
   return (
-    <div className=" px-4 py-20">
+    <div className="px-4 py-20">
       {article && (
-        <div className="">
-          <center className="align">
-            <header className="text-3xl font-bold">{article?.title}</header>
-            <div className=" max-w-screen h-[500px] relative">
+        <div>
+          <center>
+            <header className="text-3xl font-bold">{article.title}</header>
+            <div className="max-w-screen h-[500px] relative">
               <Image
-                src={`https:${
-                  (article?.image as IContentfulAsset)?.fields.file.url
-                }`}
+                src={`https:${article.image.fields.file.url}`}
                 fill
                 style={{ objectFit: "cover" }}
                 alt="article-image"
